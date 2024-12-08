@@ -1,5 +1,6 @@
 package com.med.api.model.consulta;
 
+import com.med.api.model.medico.Medico;
 import com.med.api.model.medico.MedicoRepository;
 import com.med.api.model.paciente.PacienteRepository;
 import jakarta.validation.Valid;
@@ -19,10 +20,25 @@ public class ReservaDeConsultas {
     PacienteRepository pacienteRepository;
 
     public void reservar(@Valid DatosReservaConsultaDTO datos){
-        var medico = medicoRepository.findById(datos.idMedico()).get();
+
+        if(!pacienteRepository.existsById(datos.idPaciente())){
+            throw new RuntimeException("Paciente no encontrado");
+        }
+        if(!medicoRepository.existsById(datos.idMedico())){
+            throw new RuntimeException("Medico no encontrado");
+        }
+        
+        var medico = elegirMedico(datos);
         var paciente = pacienteRepository.findById(datos.idPaciente()).get();
 
         Consulta consulta = new Consulta(null, medico, paciente, datos.fecha());
         consultaRepository.save(consulta);
+    }
+
+    private Medico elegirMedico(DatosReservaConsultaDTO datos) {
+
+
+
+        return null;
     }
 }
