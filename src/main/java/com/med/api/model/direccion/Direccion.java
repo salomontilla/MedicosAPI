@@ -1,6 +1,5 @@
-package com.med.api.model;
+package com.med.api.model.direccion;
 
-import com.med.api.ModeloDTO.DatosDireccionDTO;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

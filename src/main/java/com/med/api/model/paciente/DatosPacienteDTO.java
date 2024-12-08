@@ -1,4 +1,6 @@
-package com.med.api.ModeloDTO;
+package com.med.api.model.paciente;
+
+import com.med.api.model.direccion.DatosDireccionDTO;
 
 public record DatosPacienteDTO(
         String nombre,

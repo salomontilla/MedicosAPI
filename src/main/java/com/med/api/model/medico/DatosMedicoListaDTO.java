@@ -1,15 +1,13 @@
-package com.med.api.ModeloDTO;
+package com.med.api.model.medico;
 
-import com.med.api.model.Medico;
-
-public record MedicoListaDTO (
+public record DatosMedicoListaDTO(
         long id,
         String nombre,
         String especialidad,
         String telefono,
         String email
 ) {
-    public MedicoListaDTO(Medico medico){
+    public DatosMedicoListaDTO(Medico medico){
         this(medico.getId(), medico.getNombre(), medico.getEspecialidad().toString(), medico.getTelefono(), medico.getEmail());
     }
 }

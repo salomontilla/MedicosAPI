@@ -1,9 +1,9 @@
 package com.med.api.controller;
 
-import com.med.api.ModeloDTO.DatosUsuarioDTO;
+import com.med.api.model.usuario.DatosUsuarioDTO;
 import com.med.api.infra.security.DatosJWTokenDTO;
 import com.med.api.infra.security.TokenService;
-import com.med.api.model.Usuario;
+import com.med.api.model.usuario.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.function.ToDoubleBiFunction;
 
 //este controlador se encarga de autenticar al usuario
 @RestController

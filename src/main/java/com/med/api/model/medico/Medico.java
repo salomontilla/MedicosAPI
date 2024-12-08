@@ -1,6 +1,6 @@
-package com.med.api.model;
+package com.med.api.model.medico;
 
-import com.med.api.ModeloDTO.DatosMedicoDTO;
+import com.med.api.model.direccion.Direccion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -38,7 +38,7 @@ public class Medico {
         this.direccion = new Direccion(medico.direccion());
     }
 
-    public void actualizarDatos(ActualizarMedicoDTO medico) {
+    public void actualizarDatos(DatosActualizarMedicoDTO medico) {
         if(medico.nombre() != null){
             this.nombre = medico.nombre();
         }

@@ -1,6 +1,5 @@
-package com.med.api.repository;
+package com.med.api.model.usuario;
 
-import com.med.api.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 

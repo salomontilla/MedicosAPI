@@ -1,6 +1,6 @@
 package com.med.api.infra.security;
 
-import com.med.api.repository.UsuarioRepository;
+import com.med.api.model.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

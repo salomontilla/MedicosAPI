@@ -1,4 +1,4 @@
-package com.med.api.model;
+package com.med.api.model.medico;
 
 public enum Especialidad {
     GINECOLOGIA,

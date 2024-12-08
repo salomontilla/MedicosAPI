@@ -1,6 +1,5 @@
-package com.med.api.ModeloDTO;
+package com.med.api.model.direccion;
 
-import com.med.api.model.Direccion;
 import jakarta.validation.constraints.NotBlank;
 
 public record DatosDireccionDTO(

@@ -23,15 +23,15 @@ public class SecurityConfigurations {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(csrf -> csrf.disable())
+        return http.csrf(csrf -> csrf.disable())//retorna un objeto SecurityFilterChain en este caso un filtro personalizado
                 .sessionManagement(sess ->
-                        sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))//se deshabilita la creación de sesiones stateful
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()//se permite el acceso a la ruta /login
+                        .anyRequest().authenticated()//se requiere autenticación para cualquier recurso
                 )
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)//se agrega el filtro personalizado
+                .build();//este filtro consiste en que se debe autenticar el usuario antes de acceder a cualquier recurso
     }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

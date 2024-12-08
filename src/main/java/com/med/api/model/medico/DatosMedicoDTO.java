@@ -1,11 +1,10 @@
-package com.med.api.ModeloDTO;
+package com.med.api.model.medico;
 
-import com.med.api.model.Especialidad;
+import com.med.api.model.direccion.DatosDireccionDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.UniqueElements;
 
 public record DatosMedicoDTO (
         @NotBlank

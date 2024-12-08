@@ -1,12 +1,12 @@
 package com.med.api.controller;
 
-import com.med.api.ModeloDTO.DatosDireccionDTO;
-import com.med.api.ModeloDTO.DatosMedicoDTO;
-import com.med.api.ModeloDTO.DatosMedicoRespuestaDTO;
-import com.med.api.ModeloDTO.MedicoListaDTO;
-import com.med.api.model.ActualizarMedicoDTO;
-import com.med.api.model.Medico;
-import com.med.api.repository.MedicoRepository;
+import com.med.api.model.direccion.DatosDireccionDTO;
+import com.med.api.model.medico.DatosMedicoDTO;
+import com.med.api.model.medico.DatosMedicoRespuestaDTO;
+import com.med.api.model.medico.DatosMedicoListaDTO;
+import com.med.api.model.medico.DatosActualizarMedicoDTO;
+import com.med.api.model.medico.Medico;
+import com.med.api.model.medico.MedicoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
@@ -36,14 +35,14 @@ public class MedicoController {
         return ResponseEntity.created(url).body(datosMedico);
     }
     @GetMapping
-    public ResponseEntity<Page<MedicoListaDTO>> listarMedicos(Pageable pageable){ //@PageableDefault(size = 10) para dar valores por defecto
+    public ResponseEntity<Page<DatosMedicoListaDTO>> listarMedicos(Pageable pageable){ //@PageableDefault(size = 10) para dar valores por defecto
         //return medicoRepository.findAll(pageable).map(MedicoListaDTO::new)
-        return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(MedicoListaDTO::new));
+        return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(DatosMedicoListaDTO::new));
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity <DatosMedicoRespuestaDTO> actualizarMedico(@RequestBody @Valid  ActualizarMedicoDTO medico){
+    public ResponseEntity <DatosMedicoRespuestaDTO> actualizarMedico(@RequestBody @Valid DatosActualizarMedicoDTO medico){
         Medico nuevoMedico = medicoRepository.getReferenceById(medico.id());
         nuevoMedico.actualizarDatos(medico);
         return ResponseEntity.ok(new DatosMedicoRespuestaDTO(nuevoMedico.getId(), nuevoMedico.getNombre(), nuevoMedico.getApellido(),

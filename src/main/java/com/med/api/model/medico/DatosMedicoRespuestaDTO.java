@@ -1,4 +1,6 @@
-package com.med.api.ModeloDTO;
+package com.med.api.model.medico;
+
+import com.med.api.model.direccion.DatosDireccionDTO;
 
 public record DatosMedicoRespuestaDTO(
         Long id,
