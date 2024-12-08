@@ -31,11 +31,11 @@ public class ReservaDeConsultas {
         var medico = elegirMedico(datos);
         var paciente = pacienteRepository.findById(datos.idPaciente()).get();
 
-        Consulta consulta = new Consulta(null, medico, paciente, datos.fecha());
+        Consulta consulta = new Consulta(null, medico, paciente, datos.fecha(), null);
         consultaRepository.save(consulta);
     }
 
-    private Medico elegirMedico(DatosReservaConsultaDTO datos) {
+    public Medico elegirMedico(DatosReservaConsultaDTO datos) {
 
         if(datos.idMedico() != null){
             return medicoRepository.getReferenceById(datos.idMedico());
@@ -46,4 +46,13 @@ public class ReservaDeConsultas {
 
         return medicoRepository.elegirMedicoAleatorio(datos.especialidad(), datos.fecha());
     }
+
+    public void cancelar(DatosCancelamientoConsultaDTO datos){
+        if(!consultaRepository.existsById(datos.id())){
+            throw new RuntimeException("Consulta no encontrada");
+        }
+        var consulta = consultaRepository.getReferenceById(datos.id());
+        consulta.cancelar(datos.motivo());
+    }
+
 }
