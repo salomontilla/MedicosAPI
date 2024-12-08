@@ -37,8 +37,13 @@ public class ReservaDeConsultas {
 
     private Medico elegirMedico(DatosReservaConsultaDTO datos) {
 
+        if(datos.idMedico() != null){
+            return medicoRepository.getReferenceById(datos.idMedico());
+        }
+        if(datos.especialidad() == null){
+            throw new RuntimeException("Es necesario especificar una especialidad");
+        }
 
-
-        return null;
+        return medicoRepository.elegirMedicoAleatorio(datos.especialidad(), datos.fecha());
     }
 }

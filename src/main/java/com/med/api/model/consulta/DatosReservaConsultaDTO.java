@@ -1,5 +1,6 @@
 package com.med.api.model.consulta;
 
+import com.med.api.model.medico.Especialidad;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,7 +11,9 @@ public record DatosReservaConsultaDTO(
         @NotNull
         Long idPaciente,
         @NotNull @Future
-        LocalDateTime fecha
+        LocalDateTime fecha,
+        Especialidad especialidad
 
 ) {
+
 }
