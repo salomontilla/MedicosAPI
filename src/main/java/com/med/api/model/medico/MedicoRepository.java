@@ -18,6 +18,8 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
                 SELECT c.medico.id FROM consulta c
                 WHERE c.fecha = :fecha
             )
+            ORDER BY RAND()
+            LIMIT 1
             """)
     Medico elegirMedicoAleatorio(Especialidad especialidad, LocalDateTime fecha);
 }
