@@ -1,11 +1,12 @@
 package com.med.api.model.consulta.validaciones;
 
 import com.med.api.model.consulta.DatosReservaConsultaDTO;
+import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-
-public class ValidadorFueraHorarioConsulta {
+@Component
+public class ValidadorFueraHorarioConsulta implements ValidadorDeConsultas {
     public void validar(DatosReservaConsultaDTO datos) {
         var fechaConsulta = datos.fecha();
         var isDomingo = fechaConsulta.getDayOfWeek().equals(DayOfWeek.SUNDAY);

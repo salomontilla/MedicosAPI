@@ -1,5 +1,6 @@
 package com.med.api.model.consulta;
 
+import com.med.api.model.consulta.validaciones.ValidadorDeConsultas;
 import com.med.api.model.medico.Medico;
 import com.med.api.model.medico.MedicoRepository;
 import com.med.api.model.paciente.PacienteRepository;
@@ -7,29 +8,39 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReservaDeConsultas {
 
     @Autowired
-    ConsultaRepository consultaRepository;
+    private ConsultaRepository consultaRepository;
 
     @Autowired
-    MedicoRepository medicoRepository;
+    private MedicoRepository medicoRepository;
 
     @Autowired
-    PacienteRepository pacienteRepository;
+    private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private List<ValidadorDeConsultas> validadores;
+    //este metodo se encarga de reservar una consulta
     public void reservar(@Valid DatosReservaConsultaDTO datos){
 
-        if(!pacienteRepository.existsById(datos.idPaciente())){
+        if(!pacienteRepository.existsById(datos.idPaciente())){//validamos que el paciente exista
             throw new RuntimeException("Paciente no encontrado");
         }
-        if(!medicoRepository.existsById(datos.idMedico())){
-            throw new RuntimeException("Medico no encontrado");
-        }
+
+
+        validadores.forEach(validador -> validador.validar(datos));//validamos los dato de la consulta usando los validadores
         
-        var medico = elegirMedico(datos);
-        var paciente = pacienteRepository.findById(datos.idPaciente()).get();
+        var medico = elegirMedico(datos);//elegimos un medico para la consulta
+
+        if (medico == null) {
+            throw new RuntimeException("No hay médicos disponibles");
+        }
+
+        var paciente = pacienteRepository.findById(datos.idPaciente()).get();//obtenemos el paciente
 
         Consulta consulta = new Consulta(null, medico, paciente, datos.fecha(), null);
         consultaRepository.save(consulta);
@@ -44,7 +55,7 @@ public class ReservaDeConsultas {
             throw new RuntimeException("Es necesario especificar una especialidad");
         }
 
-        return medicoRepository.elegirMedicoAleatorio(datos.especialidad(), datos.fecha());
+        return medicoRepository.elegirMedicoAleatorio(datos.especialidad().toString(), datos.fecha());
     }
 
     public void cancelar(DatosCancelamientoConsultaDTO datos){

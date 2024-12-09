@@ -2,8 +2,12 @@ package com.med.api.model.consulta.validaciones;
 
 import com.med.api.model.consulta.DatosReservaConsultaDTO;
 import com.med.api.model.paciente.PacienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ValidadorPacienteActivo {
+@Component
+public class ValidadorPacienteActivo implements ValidadorDeConsultas {
+    @Autowired
     private PacienteRepository pacienteRepository;
 
     public void validar(DatosReservaConsultaDTO datos) {
