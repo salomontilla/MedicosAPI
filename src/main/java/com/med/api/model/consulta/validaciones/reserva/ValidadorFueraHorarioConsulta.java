@@ -1,10 +1,10 @@
-package com.med.api.model.consulta.validaciones;
+package com.med.api.model.consulta.validaciones.reserva;
 
 import com.med.api.model.consulta.DatosReservaConsultaDTO;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
+
 @Component
 public class ValidadorFueraHorarioConsulta implements ValidadorDeConsultas {
     public void validar(DatosReservaConsultaDTO datos) {

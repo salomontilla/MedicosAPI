@@ -1,6 +1,7 @@
 package com.med.api.model.consulta;
 
-import com.med.api.model.consulta.validaciones.ValidadorDeConsultas;
+import com.med.api.model.consulta.validaciones.reserva.ValidadorDeConsultas;
+import com.med.api.model.consulta.validaciones.cancelamiento.ValidadorDeCancelamiento;
 import com.med.api.model.medico.Medico;
 import com.med.api.model.medico.MedicoRepository;
 import com.med.api.model.paciente.PacienteRepository;
@@ -24,8 +25,12 @@ public class ReservaDeConsultas {
 
     @Autowired
     private List<ValidadorDeConsultas> validadores;
+
+    @Autowired
+    private List<ValidadorDeCancelamiento> validadoresDeCancelamientos;
+
     //este metodo se encarga de reservar una consulta
-    public void reservar(@Valid DatosReservaConsultaDTO datos){
+    public DatosDetalleConsultaDTO reservar(@Valid DatosReservaConsultaDTO datos){
 
         if(!pacienteRepository.existsById(datos.idPaciente())){//validamos que el paciente exista
             throw new RuntimeException("Paciente no encontrado");
@@ -44,6 +49,7 @@ public class ReservaDeConsultas {
 
         Consulta consulta = new Consulta(null, medico, paciente, datos.fecha(), null);
         consultaRepository.save(consulta);
+        return new DatosDetalleConsultaDTO(consulta);
     }
 
     public Medico elegirMedico(DatosReservaConsultaDTO datos) {

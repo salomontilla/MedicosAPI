@@ -18,8 +18,8 @@ public class ConsultasController {
 
     @PostMapping @Transactional
     public ResponseEntity reservar (@RequestBody @Valid DatosReservaConsultaDTO datos) {
-        reserva.reservar(datos);
-        return ResponseEntity.ok(new DatosDetalleConsultaDTO(null, null, null, null));
+        var consulta = reserva.reservar(datos);
+        return ResponseEntity.ok(new DatosDetalleConsultaDTO(consulta.id(), consulta.idMedico(), consulta.idPaciente(), consulta.fecha()));
     }
 
     @DeleteMapping() @Transactional

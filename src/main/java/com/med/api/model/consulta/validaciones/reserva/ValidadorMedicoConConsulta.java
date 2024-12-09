@@ -1,4 +1,4 @@
-package com.med.api.model.consulta.validaciones;
+package com.med.api.model.consulta.validaciones.reserva;
 
 import com.med.api.model.consulta.ConsultaRepository;
 import com.med.api.model.consulta.DatosReservaConsultaDTO;
@@ -11,7 +11,7 @@ public class ValidadorMedicoConConsulta implements ValidadorDeConsultas {
     private ConsultaRepository consultaRepository;
     public void validar(DatosReservaConsultaDTO datos) {
 
-        var medicoTieneOtraConsulta = consultaRepository.existsByMedicoIdAndFecha(datos.idMedico(), datos.fecha());
+        var medicoTieneOtraConsulta = consultaRepository.existsByMedicoIdAndFechaAndMotivoCancelamientoIsNull(datos.idMedico(), datos.fecha());
         if(medicoTieneOtraConsulta) {
             throw new RuntimeException("El médico seleccionado ya tiene una consulta agendada para la fecha y hora seleccionada");
         }

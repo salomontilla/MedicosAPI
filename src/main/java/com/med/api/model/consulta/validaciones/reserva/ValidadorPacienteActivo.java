@@ -1,4 +1,4 @@
-package com.med.api.model.consulta.validaciones;
+package com.med.api.model.consulta.validaciones.reserva;
 
 import com.med.api.model.consulta.DatosReservaConsultaDTO;
 import com.med.api.model.paciente.PacienteRepository;
