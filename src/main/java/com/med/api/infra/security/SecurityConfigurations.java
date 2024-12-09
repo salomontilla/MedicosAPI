@@ -28,6 +28,7 @@ public class SecurityConfigurations {
                         sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))//se deshabilita la creación de sesiones stateful
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()//se permite el acceso a la ruta /login
+                        .requestMatchers()
                         .anyRequest().authenticated()//se requiere autenticación para cualquier recurso
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)//se agrega el filtro personalizado
