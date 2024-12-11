@@ -33,20 +33,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 class ConsultasControllerTest {
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mvc; // Simula las peticiones HTTP
 
     @Autowired
-    private JacksonTester<DatosReservaConsultaDTO> datosReservaConsultaDTOJson;
+    private JacksonTester<DatosReservaConsultaDTO> datosReservaConsultaDTOJson; // Serializa y deserializa objetos para ser testeados
 
     @Autowired
     private JacksonTester<DatosDetalleConsultaDTO> datosDetalleConsultaDTOJson;
 
-    @MockitoBean
-    private ReservaDeConsultas reservaDeConsultas;
+    @MockitoBean //esta anotacion es necesaria para que mockito pueda mockear la clase //mockear es simular el comportamiento de una clase
+    private ReservaDeConsultas reservaDeConsultas; // Simula la clase ReservaDeConsultas
 
     @Test
     @DisplayName("Retorna http status 400 bad request")
-    @WithMockUser
+    @WithMockUser//simula un usuario autenticado
     void reservar_escenario1() throws Exception {
         var response = mvc.perform(post("/consultas"))
             .andReturn().getResponse();
@@ -61,13 +61,13 @@ class ConsultasControllerTest {
         var fecha = LocalDateTime.now().plusHours(1);
         var especialidad = Especialidad.CARDIOLOGIA;
         var datosDetalle = new DatosDetalleConsultaDTO(1L, 1L, 1L, fecha);
-        when(reservaDeConsultas.reservar(any())).thenReturn(datosDetalle);
-        var response = mvc.perform(post("/consultas")
+        when(reservaDeConsultas.reservar(any())).thenReturn(datosDetalle);//cuando se llame al metodo reservar de la clase ReservaDeConsultas, retornara datosDetalle
+        var response = mvc.perform(post("/consultas")//perform realiza una peticion HTTP
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(datosReservaConsultaDTOJson.write(new DatosReservaConsultaDTO(
                         1L, 1L, fecha, especialidad
                 )).getJson())
-        ).andReturn().getResponse();
+        ).andReturn().getResponse(); // Se realiza una petición POST a la ruta /consultas con los datos de la consulta
 
         var jsonEsperado = datosDetalleConsultaDTOJson.write(
                datosDetalle
