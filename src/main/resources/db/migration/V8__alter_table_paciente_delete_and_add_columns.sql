@@ -1,9 +1,9 @@
 -- Eliminar columnas innecesarias
-ALTER TABLE paciente
+ALTER TABLE pacientes
 DROP COLUMN distrito,
 DROP COLUMN complemento,
 DROP COLUMN numero;
 
 -- Agregar nuevas columnas
-ALTER TABLE paciente
+ALTER TABLE pacientes
 ADD COLUMN barrio VARCHAR(100);
